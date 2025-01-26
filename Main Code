@@ -1,0 +1,50 @@
+import nltk //to create a chatbot i needed to import a natural language toolkit which contains tools to proccess text
+from nltk.chat.util import Chat, reflections  //chat.util is a module tha helps us create rules and reflections is a dictionary that maps pronouns to make responses sound natural
+
+nltk.download('punkt') // i need to download a model to split text into words and sentences
+
+pairs = [ //i created a array filled with pattern responses, e.g'r"hi|hello|hey hi hello and hey are seen as the same thing
+    [
+        r"hi|hello|hey",
+        ["Hello! How can I help you?", "Hi there! What can I do for you?"]
+    ],
+    [
+        r"how are you ?",
+        ["I'm doing well, thank you!", "I'm great! How about you?"]
+    ],
+    [
+        r"what is your name ?",
+        ["I am a chatbot. You can call me Chatty!", "My name is Chatty. How can I assist you?"]
+    ],
+    [
+        r"quit",
+        ["Bye! Take care.", "Goodbye! Have a great day."]
+    ],
+    [
+        r"what can you do ?",
+        ["I can chat with you, answer basic questions, and help you with simple tasks."]
+    ],
+    [
+        r"thank you|thanks",
+        ["You're welcome!", "No problem! Happy to help."]
+    ],
+    [
+        r"(.*) your name ?",
+        ["I am a chatbot. You can call me Chatty!", "My name is Chatty. How can I assist you?"]
+    ],
+    [
+        r"(.*) (help|assist) (.*)",
+        ["Sure, I can help you. What do you need?", "How can I assist you?"]
+    ],
+]
+
+chatbot = Chat(pairs, reflections)
+
+print("Hello! I'm Chatty, your chatbot. Type 'quit' to exit.")
+
+while True:
+    user_input = input("You: ")
+    response = chatbot.respond(user_input)
+    print("Chatty:", response)
+    if user_input.lower() == "quit":
+        break
